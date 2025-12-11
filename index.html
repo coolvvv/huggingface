@@ -1,722 +1,980 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Network - Protect Earth</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>AI学习平台 - AI Learning Platform</title>
     <style>
+        /* 全局样式 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        :root {
-            --primary: #2e7d32;
-            --secondary: #4caf50;
-            --accent: #8bc34a;
-            --light: #e8f5e9;
-            --dark: #1b5e20;
-            --text: #333333;
-            --white: #ffffff;
-        }
-
+        
         body {
-            background-color: var(--light);
-            color: var(--text);
             line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
         }
-
-        header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
+        
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 15px;
         }
-
-        .nav-container {
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #4361ee, #3a0ca3);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        /* 导航栏样式 */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px 0;
         }
-
+        
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
             font-size: 1.8rem;
             font-weight: 700;
+            color: #3a0ca3;
+            text-decoration: none;
         }
-
-        .logo i {
-            font-size: 2rem;
-        }
-
-        nav ul {
+        
+        .nav-links {
             display: flex;
             list-style: none;
         }
-
-        nav ul li {
-            margin-left: 2rem;
+        
+        .nav-links li {
+            margin-left: 30px;
         }
-
-        nav ul li a {
-            color: var(--white);
+        
+        .nav-links a {
             text-decoration: none;
+            color: #2c3e50;
             font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0;
-            position: relative;
+            transition: color 0.3s;
         }
-
-        nav ul li a:hover {
-            color: var(--accent);
+        
+        .nav-links a:hover {
+            color: #4361ee;
         }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
+        
+        .auth-buttons {
             display: flex;
             align-items: center;
-            text-align: center;
-            color: var(--white);
         }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
+        
+        .auth-buttons a {
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .login-btn {
+            color: #4361ee;
+            margin-right: 15px;
+        }
+        
+        .register-btn {
+            background-color: #4361ee;
+            color: white;
+        }
+        
+        .register-btn:hover {
+            background-color: #3a0ca3;
+        }
+        
+        /* 语言切换器样式 */
+        .language-switcher {
+            display: flex;
+            margin-right: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .lang-btn {
+            padding: 6px 12px;
+            background: white;
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 0.9rem;
+            transition: all 0.3s;
         }
-
-        .btn:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        
+        .lang-btn.active {
+            background-color: #4361ee;
+            color: white;
         }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent);
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            color: var(--text);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-img {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .about-img:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-item i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .stat-item h3 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            color: var(--text);
-        }
-
-        .initiatives {
-            background-color: var(--white);
-        }
-
-        .initiatives-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .initiative-card {
-            background-color: var(--light);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .initiative-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .initiative-img {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .initiative-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .initiative-card:hover .initiative-img img {
-            transform: scale(1.1);
-        }
-
-        .initiative-content {
-            padding: 1.5rem;
-        }
-
-        .initiative-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .initiative-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .cta {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            text-align: center;
-            padding: 5rem 0;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta .btn {
-            background-color: var(--white);
-            color: var(--primary);
-        }
-
-        .cta .btn:hover {
-            background-color: var(--accent);
-            color: var(--white);
-        }
-
-        footer {
-            background-color: var(--dark);
-            color: var(--white);
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--accent);
-        }
-
-        .footer-column p {
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links li a {
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links li a:hover {
-            color: var(--accent);
-            padding-left: 5px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
+        
         .mobile-menu {
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
         }
-
+        
+        /* 英雄区域样式 */
+        .hero {
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            color: white;
+            padding: 180px 0 100px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: white;
+            color: #4361ee;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0 10px;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 课程展示区域样式 */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .course-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .course-image {
+            height: 180px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-weight: 500;
+        }
+        
+        .course-content {
+            padding: 20px;
+        }
+        
+        .course-content h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .course-content p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.85rem;
+        }
+        
+        /* AI工具区域样式 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .tool-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tool-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        .tool-card h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .tool-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* 学习路径区域样式 */
+        .learning-path {
+            background-color: #f0f4f8;
+        }
+        
+        .path-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .path-steps:before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4361ee, #3a0ca3);
+            z-index: 1;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            border: 3px solid #4361ee;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4361ee;
+        }
+        
+        .step h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .step p {
+            color: #666;
+            font-size: 0.9rem;
+            max-width: 200px;
+            margin: 0 auto;
+        }
+        
+        /* 优势区域样式 */
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .advantage-card {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        .advantage-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .advantage-card h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .advantage-card p {
+            color: #666;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #4361ee;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #4361ee;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
         @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
+            .path-steps {
+                flex-direction: column;
+                align-items: center;
             }
             
-            .initiatives-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .path-steps:before {
+                width: 3px;
+                height: 100%;
+                left: 50%;
+                transform: translateX(-50%);
             }
             
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
+            .step {
+                margin-bottom: 40px;
+                width: 100%;
             }
             
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
+            .step:last-child {
+                margin-bottom: 0;
             }
         }
-
+        
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            nav ul {
+            .nav-links, .auth-buttons {
                 display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary);
-                flex-direction: column;
-                padding: 1rem 0;
-                text-align: center;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0;
-                padding: 0.8rem 0;
             }
             
             .mobile-menu {
                 display: block;
             }
             
-            .initiatives-grid {
-                grid-template-columns: 1fr;
+            .hero h1 {
+                font-size: 2.5rem;
             }
             
-            .footer-content {
-                grid-template-columns: 1fr;
+            .section-title {
+                font-size: 2rem;
             }
             
-            .stats {
-                grid-template-columns: 1fr;
+            .language-switcher {
+                margin-right: 10px;
             }
         }
-
-        /* Animation for stats counter */
-        .counter {
-            transition: all 0.5s ease;
+        
+        /* 语言切换动画 */
+        .lang-transition {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .lang-transition.show {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- 导航栏 -->
     <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fas fa-seedling"></i>
-                <span>Green Network</span>
-            </div>
-            <nav>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#initiatives">Initiatives</a></li>
-                    <li><a href="#get-involved">Get Involved</a></li>
-                    <li><a href="#contact">Contact</a></li>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo" data-key="logo">AI学习平台</a>
+                <ul class="nav-links">
+                    <li><a href="#home" data-key="nav-home">首页</a></li>
+                    <li><a href="#courses" data-key="nav-courses">AI课程</a></li>
+                    <li><a href="#tools" data-key="nav-tools">AI工具</a></li>
+                    <li><a href="#path" data-key="nav-path">学习路径</a></li>
+                    <li><a href="#advantages" data-key="nav-advantages">平台优势</a></li>
                 </ul>
+                <div class="auth-buttons">
+                    <div class="language-switcher">
+                        <button class="lang-btn active" data-lang="zh">中文</button>
+                        <button class="lang-btn" data-lang="en">English</button>
+                    </div>
+                    <a href="#" class="login-btn" data-key="login">登录</a>
+                    <a href="#" class="register-btn" data-key="register">注册</a>
+                </div>
+                <div class="mobile-menu">☰</div>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- 英雄区域 -->
     <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Protect Our Planet, Preserve Our Future</h1>
-            <p>Join the global movement to create a sustainable world through conservation, education, and community action.</p>
-            <a href="#get-involved" class="btn">Join Our Network</a>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
         <div class="container">
-            <div class="section-title">
-                <h2>About Green Network</h2>
-                <p>We are a global community dedicated to environmental protection and sustainable development.</p>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Team planting trees">
-                </div>
-                <div class="about-text">
-                    <h3>Our Mission</h3>
-                    <p>Green Network is committed to creating a sustainable future by protecting natural ecosystems, promoting renewable energy, and empowering communities to take environmental action.</p>
-                    <p>Founded in 2010, we've grown from a small grassroots organization to an international network with over 50,000 members across 120 countries.</p>
-                    <p>Our approach combines scientific research, community engagement, and policy advocacy to address the most pressing environmental challenges of our time.</p>
-                    <a href="#" class="btn">Learn More</a>
-                </div>
-            </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <i class="fas fa-tree"></i>
-                    <h3 class="counter" data-target="2500000">0</h3>
-                    <p>Trees Planted</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <h3 class="counter" data-target="50000">0</h3>
-                    <p>Active Members</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-globe-americas"></i>
-                    <h3 class="counter" data-target="120">0</h3>
-                    <p>Countries Reached</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-recycle"></i>
-                    <h3 class="counter" data-target="1500">0</h3>
-                    <p>Cleanup Projects</p>
-                </div>
+            <h1 class="lang-transition" data-key="hero-title">掌握人工智能，塑造未来世界</h1>
+            <p class="lang-transition" data-key="hero-description">从基础到进阶，一站式AI学习平台，助您快速掌握机器学习、深度学习等前沿技术，开启智能时代职业生涯。</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn lang-transition" data-key="hero-btn-start">开始学习</a>
+                <a href="#" class="btn btn-outline lang-transition" data-key="hero-btn-more">了解更多</a>
             </div>
         </div>
     </section>
 
-    <!-- Initiatives Section -->
-    <section class="initiatives" id="initiatives">
+    <!-- 精选课程区域 -->
+    <section class="section" id="courses">
         <div class="container">
-            <div class="section-title">
-                <h2>Our Initiatives</h2>
-                <p>Discover the key programs and projects we're implementing to protect our planet.</p>
-            </div>
-            <div class="initiatives-grid">
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://dialogue.earth/content/uploads/2021/04/lessons-from-the-rush-to-reforest-china-dialogue-2400x1599.jpg" alt="Reforestation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Global Reforestation</h3>
-                        <p>Planting millions of trees worldwide to restore ecosystems, combat climate change, and protect biodiversity.</p>
-                        <a href="#" class="btn">Learn More</a>
+            <h2 class="section-title lang-transition" data-key="courses-title">精选AI课程</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image">机器学习基础课程</div>
+                    <div class="course-content">
+                        <h3 class="lang-transition" data-key="course1-title">机器学习入门与实践</h3>
+                        <p class="lang-transition" data-key="course1-desc">从零开始学习机器学习核心概念，掌握常用算法和实战技巧。</p>
+                        <div class="course-meta">
+                            <span class="lang-transition" data-key="duration">时长: 36小时</span>
+                            <span class="lang-transition" data-key="level-beginner">难度: 初级</span>
+                        </div>
                     </div>
                 </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Ocean Conservation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Ocean Conservation</h3>
-                        <p>Protecting marine ecosystems, reducing plastic pollution, and promoting sustainable fishing practices.</p>
-                        <a href="#" class="btn">Learn More</a>
+                <div class="course-card">
+                    <div class="course-image">深度学习专项课程</div>
+                    <div class="course-content">
+                        <h3 class="lang-transition" data-key="course2-title">深度学习与神经网络</h3>
+                        <p class="lang-transition" data-key="course2-desc">深入理解深度学习原理，掌握CNN、RNN等主流神经网络架构。</p>
+                        <div class="course-meta">
+                            <span class="lang-transition" data-key="duration">时长: 48小时</span>
+                            <span class="lang-transition" data-key="level-intermediate">难度: 中级</span>
+                        </div>
                     </div>
                 </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Renewable Energy">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Renewable Energy</h3>
-                        <p>Promoting solar, wind, and other clean energy sources to reduce dependence on fossil fuels.</p>
-                        <a href="#" class="btn">Learn More</a>
+                <div class="course-card">
+                    <div class="course-image">自然语言处理</div>
+                    <div class="course-content">
+                        <h3 class="lang-transition" data-key="course3-title">NLP与Transformer架构</h3>
+                        <p class="lang-transition" data-key="course3-desc">学习自然语言处理核心技术，掌握BERT、GPT等先进模型应用。</p>
+                        <div class="course-meta">
+                            <span class="lang-transition" data-key="duration">时长: 42小时</span>
+                            <span class="lang-transition" data-key="level-advanced">难度: 中高级</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta" id="get-involved">
+    <!-- AI工具区域 -->
+    <section class="section" id="tools" style="background-color: #f0f4f8;">
         <div class="container">
-            <h2>Join Our Global Movement</h2>
-            <p>Together, we can create a sustainable future for generations to come. Every action counts, no matter how small.</p>
-            <a href="#" class="btn">Become a Member</a>
+            <h2 class="section-title lang-transition" data-key="tools-title">热门AI工具</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">M</div>
+                    <h3 class="lang-transition" data-key="tool1-name">Midjourney</h3>
+                    <p class="lang-transition" data-key="tool1-desc">AI绘画生成工具，通过简单描述创建精美图像</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">C</div>
+                    <h3 class="lang-transition" data-key="tool2-name">ChatGPT</h3>
+                    <p class="lang-transition" data-key="tool2-desc">智能对话助手，解答问题、编写代码、创作内容</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">S</div>
+                    <h3 class="lang-transition" data-key="tool3-name">Stable Diffusion</h3>
+                    <p class="lang-transition" data-key="tool3-desc">开源图像生成模型，支持高度自定义创作</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">T</div>
+                    <h3 class="lang-transition" data-key="tool4-name">TensorFlow</h3>
+                    <p class="lang-transition" data-key="tool4-desc">谷歌开发的端到端开源机器学习平台</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact">
+    <!-- 学习路径区域 -->
+    <section class="section learning-path" id="path">
+        <div class="container">
+            <h2 class="section-title lang-transition" data-key="path-title">AI学习路径</h2>
+            <div class="path-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="lang-transition" data-key="step1-title">基础入门</h3>
+                    <p class="lang-transition" data-key="step1-desc">掌握Python编程、数学基础和AI基本概念</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="lang-transition" data-key="step2-title">机器学习</h3>
+                    <p class="lang-transition" data-key="step2-desc">学习经典机器学习算法和数据处理技术</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="lang-transition" data-key="step3-title">深度学习</h3>
+                    <p class="lang-transition" data-key="step3-desc">深入神经网络、CNN、RNN等深度学习模型</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 class="lang-transition" data-key="step4-title">专业方向</h3>
+                    <p class="lang-transition" data-key="step4-desc">选择计算机视觉、NLP或强化学习等专业方向</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 平台优势区域 -->
+    <section class="section" id="advantages">
+        <div class="container">
+            <h2 class="section-title lang-transition" data-key="advantages-title">平台优势</h2>
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <div class="advantage-icon">✓</div>
+                    <h3 class="lang-transition" data-key="advantage1-title">技术领先</h3>
+                    <p class="lang-transition" data-key="advantage1-desc">课程内容紧跟AI技术发展趋势，定期更新</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">👥</div>
+                    <h3 class="lang-transition" data-key="advantage2-title">专业导师</h3>
+                    <p class="lang-transition" data-key="advantage2-desc">行业专家和资深工程师提供一对一指导</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">⚡</div>
+                    <h3 class="lang-transition" data-key="advantage3-title">实战项目</h3>
+                    <p class="lang-transition" data-key="advantage3-desc">通过真实项目实践，巩固所学知识</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">💼</div>
+                    <h3 class="lang-transition" data-key="advantage4-title">就业支持</h3>
+                    <p class="lang-transition" data-key="advantage4-desc">提供职业规划和就业推荐服务</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Green Network</h3>
-                    <p>We are dedicated to protecting our planet through collaborative action, education, and sustainable solutions.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
+                    <h3 class="lang-transition" data-key="footer-about">关于我们</h3>
                     <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#initiatives">Initiatives</a></li>
-                        <li><a href="#get-involved">Get Involved</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-about1">平台介绍</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-about2">团队介绍</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-about3">加入我们</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-about4">联系我们</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Our Programs</h3>
+                    <h3 class="lang-transition" data-key="footer-resources">学习资源</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Reforestation</a></li>
-                        <li><a href="#">Ocean Cleanup</a></li>
-                        <li><a href="#">Wildlife Protection</a></li>
-                        <li><a href="#">Climate Education</a></li>
-                        <li><a href="#">Sustainable Agriculture</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-resources1">AI课程</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-resources2">实战项目</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-resources3">技术文档</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-resources4">社区论坛</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Copper Creek Drive, New York</p>
-                    <p><i class="fas fa-phone"></i> +1 (312) 171-0771</p>
-                    <p><i class="fas fa-envelope"></i> support@greennetwork.org</p>
+                    <h3 class="lang-transition" data-key="footer-support">帮助支持</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="lang-transition" data-key="footer-support1">常见问题</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-support2">使用指南</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-support3">服务条款</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-support4">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="lang-transition" data-key="footer-follow">关注我们</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="lang-transition" data-key="footer-follow1">微信公众号</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-follow2">知乎专栏</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-follow3">B站频道</a></li>
+                        <li><a href="#" class="lang-transition" data-key="footer-follow4">GitHub开源</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 Green Network. All rights reserved.</p>
+                <p>&copy; 2025 <span class="lang-transition" data-key="copyright">AI学习平台 保留所有权利</span></p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
+        // 语言包定义
+        const translations = {
+            zh: {
+                "logo": "AI学习平台",
+                "nav-home": "首页",
+                "nav-courses": "AI课程",
+                "nav-tools": "AI工具",
+                "nav-path": "学习路径",
+                "nav-advantages": "平台优势",
+                "login": "登录",
+                "register": "注册",
+                "hero-title": "掌握人工智能，塑造未来世界",
+                "hero-description": "从基础到进阶，一站式AI学习平台，助您快速掌握机器学习、深度学习等前沿技术，开启智能时代职业生涯。",
+                "hero-btn-start": "开始学习",
+                "hero-btn-more": "了解更多",
+                "courses-title": "精选AI课程",
+                "course1-title": "机器学习入门与实践",
+                "course1-desc": "从零开始学习机器学习核心概念，掌握常用算法和实战技巧。",
+                "course2-title": "深度学习与神经网络",
+                "course2-desc": "深入理解深度学习原理，掌握CNN、RNN等主流神经网络架构。",
+                "course3-title": "NLP与Transformer架构",
+                "course3-desc": "学习自然语言处理核心技术，掌握BERT、GPT等先进模型应用。",
+                "duration": "时长",
+                "level-beginner": "初级",
+                "level-intermediate": "中级",
+                "level-advanced": "中高级",
+                "tools-title": "热门AI工具",
+                "tool1-name": "Midjourney",
+                "tool1-desc": "AI绘画生成工具，通过简单描述创建精美图像",
+                "tool2-name": "ChatGPT",
+                "tool2-desc": "智能对话助手，解答问题、编写代码、创作内容",
+                "tool3-name": "Stable Diffusion",
+                "tool3-desc": "开源图像生成模型，支持高度自定义创作",
+                "tool4-name": "TensorFlow",
+                "tool4-desc": "谷歌开发的端到端开源机器学习平台",
+                "path-title": "AI学习路径",
+                "step1-title": "基础入门",
+                "step1-desc": "掌握Python编程、数学基础和AI基本概念",
+                "step2-title": "机器学习",
+                "step2-desc": "学习经典机器学习算法和数据处理技术",
+                "step3-title": "深度学习",
+                "step3-desc": "深入神经网络、CNN、RNN等深度学习模型",
+                "step4-title": "专业方向",
+                "step4-desc": "选择计算机视觉、NLP或强化学习等专业方向",
+                "advantages-title": "平台优势",
+                "advantage1-title": "技术领先",
+                "advantage1-desc": "课程内容紧跟AI技术发展趋势，定期更新",
+                "advantage2-title": "专业导师",
+                "advantage2-desc": "行业专家和资深工程师提供一对一指导",
+                "advantage3-title": "实战项目",
+                "advantage3-desc": "通过真实项目实践，巩固所学知识",
+                "advantage4-title": "就业支持",
+                "advantage4-desc": "提供职业规划和就业推荐服务",
+                "footer-about": "关于我们",
+                "footer-about1": "平台介绍",
+                "footer-about2": "团队介绍",
+                "footer-about3": "加入我们",
+                "footer-about4": "联系我们",
+                "footer-resources": "学习资源",
+                "footer-resources1": "AI课程",
+                "footer-resources2": "实战项目",
+                "footer-resources3": "技术文档",
+                "footer-resources4": "社区论坛",
+                "footer-support": "帮助支持",
+                "footer-support1": "常见问题",
+                "footer-support2": "使用指南",
+                "footer-support3": "服务条款",
+                "footer-support4": "隐私政策",
+                "footer-follow": "关注我们",
+                "footer-follow1": "微信公众号",
+                "footer-follow2": "知乎专栏",
+                "footer-follow3": "B站频道",
+                "footer-follow4": "GitHub开源",
+                "copyright": "AI学习平台 保留所有权利"
+            },
+            en: {
+                "logo": "AI Learning Platform",
+                "nav-home": "Home",
+                "nav-courses": "AI Courses",
+                "nav-tools": "AI Tools",
+                "nav-path": "Learning Path",
+                "nav-advantages": "Advantages",
+                "login": "Login",
+                "register": "Register",
+                "hero-title": "Master Artificial Intelligence, Shape the Future World",
+                "hero-description": "From basics to advanced, a one-stop AI learning platform to help you quickly master machine learning, deep learning and other cutting-edge technologies, and start your career in the intelligent era.",
+                "hero-btn-start": "Start Learning",
+                "hero-btn-more": "Learn More",
+                "courses-title": "Featured AI Courses",
+                "course1-title": "Introduction to Machine Learning",
+                "course1-desc": "Learn the core concepts of machine learning from scratch, master common algorithms and practical skills.",
+                "course2-title": "Deep Learning and Neural Networks",
+                "course2-desc": "In-depth understanding of deep learning principles, master mainstream neural network architectures such as CNN and RNN.",
+                "course3-title": "NLP and Transformer Architecture",
+                "course3-desc": "Learn core natural language processing technologies and master advanced models like BERT and GPT.",
+                "duration": "Duration",
+                "level-beginner": "Beginner",
+                "level-intermediate": "Intermediate",
+                "level-advanced": "Advanced",
+                "tools-title": "Popular AI Tools",
+                "tool1-name": "Midjourney",
+                "tool1-desc": "AI painting generation tool, creating beautiful images through simple descriptions.",
+                "tool2-name": "ChatGPT",
+                "tool2-desc": "Intelligent dialogue assistant, answering questions, writing code, creating content.",
+                "tool3-name": "Stable Diffusion",
+                "tool3-desc": "Open source image generation model, supporting highly customizable creation.",
+                "tool4-name": "TensorFlow",
+                "tool4-desc": "End-to-end open source machine learning platform developed by Google.",
+                "path-title": "AI Learning Path",
+                "step1-title": "Foundation",
+                "step1-desc": "Master Python programming, mathematical foundations and basic AI concepts.",
+                "step2-title": "Machine Learning",
+                "step2-desc": "Learn classical machine learning algorithms and data processing techniques.",
+                "step3-title": "Deep Learning",
+                "step3-desc": "In-depth study of neural networks, CNN, RNN and other deep learning models.",
+                "step4-title": "Specialization",
+                "step4-desc": "Choose a professional direction such as computer vision, NLP or reinforcement learning.",
+                "advantages-title": "Platform Advantages",
+                "advantage1-title": "Leading Technology",
+                "advantage1-desc": "Course content keeps up with the latest AI technology trends and is regularly updated.",
+                "advantage2-title": "Professional Mentors",
+                "advantage2-desc": "One-on-one guidance from industry experts and senior engineers.",
+                "advantage3-title": "Practical Projects",
+                "advantage3-desc": "Consolidate what you have learned through real projects.",
+                "advantage4-title": "Career Support",
+                "advantage4-desc": "Provide career planning and job recommendation services.",
+                "footer-about": "About Us",
+                "footer-about1": "Platform Introduction",
+                "footer-about2": "Team Introduction",
+                "footer-about3": "Join Us",
+                "footer-about4": "Contact Us",
+                "footer-resources": "Learning Resources",
+                "footer-resources1": "AI Courses",
+                "footer-resources2": "Practical Projects",
+                "footer-resources3": "Technical Documentation",
+                "footer-resources4": "Community Forum",
+                "footer-support": "Help & Support",
+                "footer-support1": "FAQ",
+                "footer-support2": "User Guide",
+                "footer-support3": "Terms of Service",
+                "footer-support4": "Privacy Policy",
+                "footer-follow": "Follow Us",
+                "footer-follow1": "WeChat Official Account",
+                "footer-follow2": "Zhihu Column",
+                "footer-follow3": "Bilibili Channel",
+                "footer-follow4": "GitHub Open Source",
+                "copyright": "AI Learning Platform All Rights Reserved"
+            }
+        };
 
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200; // The lower the slower
+        // 当前语言设置
+        let currentLang = 'zh';
+
+        // 初始化语言设置
+        function initLanguage() {
+            // 从localStorage获取保存的语言设置
+            const savedLang = localStorage.getItem('preferredLanguage');
             
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                
-                const inc = target / speed;
-                
-                if(count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(animateCounters, 1);
+            // 检测浏览器语言
+            const browserLang = navigator.language || navigator.userLanguage;
+            
+            // 设置语言优先级：保存的设置 > 浏览器语言 > 默认中文
+            if (savedLang && (savedLang === 'zh' || savedLang === 'en')) {
+                currentLang = savedLang;
+            } else if (browserLang.startsWith('zh')) {
+                currentLang = 'zh';
+            } else if (browserLang.startsWith('en')) {
+                currentLang = 'en';
+            } else {
+                currentLang = 'zh'; // 默认中文
+            }
+            
+            // 更新语言切换按钮状态
+            updateLanguageButtons();
+            
+            // 应用语言
+            applyLanguage();
+        }
+
+        // 更新语言切换按钮状态
+        function updateLanguageButtons() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === currentLang) {
+                    btn.classList.add('active');
                 } else {
-                    counter.innerText = target;
+                    btn.classList.remove('active');
                 }
             });
         }
 
-        // Initialize counters when page loads
-        window.addEventListener('load', animateCounters);
+        // 应用语言到页面
+        function applyLanguage() {
+            // 隐藏所有需要翻译的元素
+            document.querySelectorAll('.lang-transition').forEach(element => {
+                element.classList.remove('show');
+            });
+            
+            // 短暂延迟后更新文本并显示
+            setTimeout(() => {
+                document.querySelectorAll('[data-key]').forEach(element => {
+                    const key = element.getAttribute('data-key');
+                    if (translations[currentLang] && translations[currentLang][key]) {
+                        element.textContent = translations[currentLang][key];
+                    }
+                });
+                
+                // 显示所有翻译后的元素
+                document.querySelectorAll('.lang-transition').forEach(element => {
+                    element.classList.add('show');
+                });
+            }, 50);
+            
+            // 更新HTML lang属性
+            document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+            
+            // 保存语言设置
+            localStorage.setItem('preferredLanguage', currentLang);
+        }
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    document.querySelector('nav ul').classList.remove('active');
+        // 切换语言
+        function switchLanguage(lang) {
+            if (lang !== currentLang) {
+                currentLang = lang;
+                updateLanguageButtons();
+                applyLanguage();
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化语言
+            initLanguage();
+            
+            // 添加语言切换按钮事件监听
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    switchLanguage(this.getAttribute('data-lang'));
+                });
+            });
+            
+            // 简单的导航栏滚动效果
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 100) {
+                    header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                } else {
+                    header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
                 }
+            });
+            
+            // 移动端菜单切换（简化版）
+            document.querySelector('.mobile-menu').addEventListener('click', function() {
+                const navLinks = document.querySelector('.nav-links');
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
             });
         });
     </script>
 </body>
-
 </html>
